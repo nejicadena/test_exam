@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "idUser": {
+            "type": "number",
+            "minLength": 1,
+            "maxLength": 10
+        },
+        "idFile": {
+            "type": "number",
+            "minLength": 1,
+            "maxLength": 10
+        },
+        "comment": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+        }
+    },
+    "required": ["idUser"]
+}
