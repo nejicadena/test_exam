@@ -18,31 +18,40 @@ Asegúrate de tener instalado lo siguiente:
 
 * Crea un entorno virtual (opcional pero se recomienda):
 
-~ python -m venv env
+```
+ python -m venv env
+```
 
 * Activa el entorno virtual:
 
-~ env\Scripts\activate
+```
+env\Scripts\activate
+```
 
 * Instala las dependencias:
 
-~ pip install -r requirements.txt
+```
+pip install -r requirements.txt
+```
 
 ## Configuración
 
-Agrega las credenciales de la base de datos en la carpeta static en archivo env static/.env
-Ejecuta el script sql en tu base de datos para poder guardar datos sql/init.sql
+* Agrega las credenciales de la base de datos en la carpeta static en archivo env static/.env
+* Ejecuta el script sql en tu base de datos para poder guardar datos sql/init.sql
 
 ## Uso
 
-~ python -m app.main
+```
+ python -m app.main
+```
 
 ## pruebas
 
 Desde la raiz utilizamos el siguiente comando para correr la pruebas
 
+```
 python -m unittest tests.test_main
-
+```
 
 
 
