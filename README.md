@@ -30,7 +30,8 @@ Asegúrate de tener instalado lo siguiente:
 
 ## Configuración
 
-Agrega las credenciales de la base de datos en la carpeta static en archivo env
+Agrega las credenciales de la base de datos en la carpeta static en archivo env static/.env
+Ejecuta el script sql en tu base de datos para poder guardar datos sql/init.sql
 
 ## Uso
 

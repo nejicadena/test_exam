@@ -1,6 +1,7 @@
 from services.sql_services import MySQLService, MySQLServiceException
 from time import sleep
 import json
+import requests
 
 
 
@@ -14,45 +15,96 @@ class UsersService:
             self.mysql_service = MySQLService()
         except MySQLServiceException as error:
             raise UsersServiceException(error) from error
-
-    def create_commet(self, data):
-        """
-        Method to get
-        Args:
-            email (str): The email of user
-        Raises:
-            UsersServiceException: If an error occurred with the database
-        Returns:
-            The user object if exists, if not returns empty object
-        """
-        query_type_user = (
-            "INSERT INTO comments(idUser, idFile, commets) "
-            "VALUES (%s,%s,%s); "
+        
+    def insert_user(self, first_name, last_name, password, email, ):
+        print(1)
+        query = (
+            "INSERT INTO `user` (userName, userLastName, userPassword, userEmail "
+            ") values(%s, %s, %s, %s)"
         )
         try:
-            self.mysql_service.insert_single_record(query_type_user, (data.get("idUser"),data.get("idFile"),data.get("comment")))
+            idRecord = self.mysql_service.insert_single_record(
+                query, [
+                    first_name,
+                    last_name,
+                    password,
+                    email,
+                ]
+            )
         except MySQLServiceException as error:
             raise UsersServiceException(error) from error
+        print(idRecord)
+        return idRecord
+        
+    def get_user_by_email(self, email):
+  
 
-        return "Ok"
+        query = (
+            "SELECT id, UserEmail, userPassword  "
+            "FROM `user` "
+            "WHERE userEmail = %s ; "
+        )
+        parameters = (email,)
+        try:
+            records = self.mysql_service.fetch_records(query, parameters)
+            if records:
+                records = records[0]
+            else:
+                records = {}
+        except MySQLServiceException as error:
+            raise UsersServiceException(error) from error
+        return records
     
     def get_commet(self, data):
-        """
-        Method to get
-        Args:
-            email (str): The email of user
-        Raises:
-            UsersServiceException: If an error occurred with the database
-        Returns:
-            The user object if exists, if not returns empty object
-        """
-        query = (
-        "SELECT * FROM comments "
-        "WHERE idFile = %s;"
-        )
+      
         try:
-            records = self.mysql_service.fetch_records(query, (data.get("idFile"),))
-        except MySQLServiceException as error:
-            raise UsersServiceException(error) from error
-
-        return records
+            response = requests.get('https://jsonplaceholder.typicode.com/comments')
+            
+            if response.status_code == 200:
+                
+                data = response.json()
+                print(data)
+                return data
+            else:
+               
+                print(f'Error: {response.status_code}')
+        except requests.RequestException as e:
+            print(f'Error de conexión: {str(e)}')
+        except Exception as e:
+            print(f'Ocurrió un error: {str(e)}')
+    
+    def get_post(self, data):
+      
+        try:
+            response = requests.get('https://jsonplaceholder.typicode.com/posts')
+            
+            if response.status_code == 200:
+                
+                data = response.json()
+                print(data)
+                return data
+            else:
+               
+                print(f'Error: {response.status_code}')
+        except requests.RequestException as e:
+            print(f'Error de conexión: {str(e)}')
+        except Exception as e:
+            print(f'Ocurrió un error: {str(e)}')
+    
+    def get_user(self, data):
+      
+        try:
+            response = requests.get('https://jsonplaceholder.typicode.com/users')
+            
+            if response.status_code == 200:
+                
+                data = response.json()
+                print(data)
+                return data
+            else:
+               
+                print(f'Error: {response.status_code}')
+        except requests.RequestException as e:
+            print(f'Error de conexión: {str(e)}')
+        except Exception as e:
+            print(f'Ocurrió un error: {str(e)}')

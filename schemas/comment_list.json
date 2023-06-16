@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "properties": {
+        "idUser": {
+            "type": "number",
+            "minLength": 1,
+            "maxLength": 10
+        }
+    },
+    "required": ["idUser"]
+}
